@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>爱你~</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .demo {
+      width: 1000px;
+      margin: 0px auto;
+      cursor: pointer;
+    }
+    
+    .list {
+      width: 218px;
+      height: 290px;
+      overflow: hidden;
+      float: left;
+      margin: 15px;
+      border-radius: 12px;
+      box-shadow: 1px 1px 6px rgba(0, 0, 0, .4);
+      position: relative;
+    }
+    
+    .list div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotate(-100deg);
+      transform-origin: left top;
+      transition: transform 0.4s;
+    }
+    
+    .current div {
+      transform: rotate(0deg);
+    }
+    
+    .list div.top {
+      transform-origin: top left;
+    }
+    
+    .list div.right {
+      transform-origin: top right;
+    }
+    
+    .list div.bottom {
+      transform-origin: bottom right;
+    }
+    
+    .list div.left {
+      transform-origin: bottom left;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="demo">
+    <div class="list">
+      <img src="img/00.jpg" alt="" />
+      <div>
+        <img src="img/1.jpg" alt="" />
+      </div>
+    </div>
+    <div class="list">
+      <img src="img/00.jpg" alt="" />
+      <div>
+        <img src="img/2.jpg" alt="" />
+      </div>
+    </div>
+    <div class="list">
+      <img src="img/00.jpg" alt="" />
+      <div>
+        <img src="img/9.jpg" alt="" />
+      </div>
+    </div>
+    <div class="list">
+      <img src="img/00.jpg" alt="" />
+      <div>
+        <img src="img/4.jpg" alt="" />
+      </div>
+    </div>
+    <div class="list">
+      <img src="img/00.jpg" alt="" />
+      <div>
+        <img src="img/5.jpg" alt="" />
+      </div>
+    </div>
+    <div class="list">
+      <img src="img/00.jpg" alt="" />
+      <div>
+        <img src="img/6.jpg" alt="" />
+      </div>
+    </div>
+    <div class="list">
+      <img src="img/00.jpg" alt="" />
+      <div>
+        <img src="img/7.jpg" alt="" />
+      </div>
+    </div>
+    <div class="list">
+      <img src="img/00.jpg" alt="" />
+      <div>
+        <img src="img/8.jpg" alt="" />
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      $(".list").on("mouseenter mouseleave", function(e) {
+        var that = $(this);
+        var w = $(this).width();
+        var h = $(this).height();
+        var x = (e.pageX - this.offsetLeft - (w / 2)) * (w > h ? (h / w) : 1);
+        var y = (e.pageY - this.offsetTop - (h / 2)) * (h > w ? (w / h) : 1);
+        var direction = Math.round((((Math.atan2(y, x) * (180 / Math.PI)) + 180) / 90) + 3) % 4;
+
+        if (e.type == 'mouseenter') {
+          switch (direction) {
+            case 0:
+              comeIn("top");
+              break;
+            case 1:
+              comeIn("right");
+              break;
+            case 2:
+              comeIn("bottom");
+              break;
+            case 3:
+              comeIn("left");
+              break;
+          }
+        } else {
+          switch (direction) {
+            case 0:
+              getOut("top");
+              break;
+            case 1:
+              getOut("right");
+              break;
+            case 2:
+              getOut("bottom");
+              break;
+            case 3:
+              getOut("left");
+              break;
+          }
+        }
+
+        function comeIn(dir) {
+          that.addClass("current");
+          that.children("div").removeClass().addClass(dir);
+        }
+
+        function getOut(dir) {
+          that.removeClass("current");
+          that.children("div").removeClass().addClass(dir);
+        }
+      });
+    })
+  </script>
+</body>
+
+</html>
